@@ -5,12 +5,10 @@ import java.util.Map;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
-import lombok.AllArgsConstructor;
 import net.kukubaczek.minigames.core.MGCore;
 import net.kukubaczek.minigames.core.general.ArenaKey;
 import net.kukubaczek.minigames.core.general.ArenaObject;
 
-@AllArgsConstructor
 public class RefreshRedisArenas extends BukkitRunnable {
 
     private MGCore plugin;

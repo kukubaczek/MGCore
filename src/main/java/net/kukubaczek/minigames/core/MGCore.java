@@ -2,7 +2,6 @@ package net.kukubaczek.minigames.core;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import lombok.Getter;
 import net.kukubaczek.minigames.core.general.ArenaObject;
 import net.kukubaczek.minigames.core.tasks.RefreshPlayersOnline;
 import net.kukubaczek.minigames.core.tasks.RefreshRedisArenas;
@@ -11,13 +10,10 @@ public class MGCore extends JavaPlugin {
 
     public static final String PREFIX = "grav_";
 
-    @Getter
     private static MGCore instance;
 
-    @Getter
     private ArenaObject arena;
 
-    @Getter
     private Redis redis;
 
     public static void log(String msg) {
@@ -58,7 +54,6 @@ public class MGCore extends JavaPlugin {
     }
 
 	public ArenaObject getArena() {
-		// TODO Auto-generated method stub
 		return arena;
 	}
 

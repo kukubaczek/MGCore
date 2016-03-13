@@ -26,6 +26,7 @@ public class RefreshRedisArenas implements Runnable{
                 data.put(ArenaKey.MAX_ONLINE.toString(), String.valueOf(a.getMaxPlayers()));
             }
             j.hmset(a.getPrefix() + a.getArenaID(), data);
+            Main.log("[SAVE] Zapisano status areny (" + a.getPrefix() + a.getArenaID() + ")");
         }
 		
 	}

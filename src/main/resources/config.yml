@@ -2,3 +2,6 @@ redis:
   ip: localhost
   port: 6379
   password: null
+
+sync:
+  time: 10

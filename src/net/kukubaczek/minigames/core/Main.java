@@ -45,16 +45,15 @@ public class Main extends JavaPlugin{
             public void run() {
                 jedis = pool.getResource();
                 pool.returnResource(jedis);
-                log("Polaczono z baza Redis!");
             }
         }.runTaskAsynchronously(this);
         
-        jedis.lpush(prefix+"arenalist", String.valueOf(arena.getArenaID()));
+        pool.getResource().lpush(prefix+"arenalist", String.valueOf(arena.getArenaID()));
         log("Pomyslnie zaaktywowano arene w redisie!");
         
         log("Tworzenie watkow...");
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, new RefreshRedisArenas(), 100L, 100L);
-        Bukkit.getScheduler().runTaskTimer(this, new RefreshPlayersOnline(), 20L, 20L);
+        Bukkit.getScheduler().runTaskTimer(this, new RefreshPlayersOnline(), 60L, 60L);
         
         log("Zaladowano!");
 	}

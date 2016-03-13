@@ -12,7 +12,7 @@ public class RefreshRedisArenas implements Runnable{
 
 	@Override
 	public void run() {
-		
+		Main.log("[SAVE] Rozpoczynanie zapisu areny...");
         try (Jedis j = Main.pool.getResource()) {
             final Map<String, String> data = new HashMap<>();
             ArenaObject a = Main.arena;
@@ -29,7 +29,7 @@ public class RefreshRedisArenas implements Runnable{
             j.hmset(a.getPrefix() + a.getArenaID(), data);
             Main.log("[SAVE] Zapisano status areny (" + a.getPrefix() + a.getArenaID() + ")");
         }
-		
+        Main.log("[SAVE] Czy zapisano poprawnie status?");
 	}
 	
 	

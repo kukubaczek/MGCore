@@ -1,22 +1,27 @@
 package net.kukubaczek.minigames.core.tasks;
 
+import lombok.AllArgsConstructor;
+import net.kukubaczek.minigames.core.MGCore;
+import net.kukubaczek.minigames.core.general.ArenaKey;
+import net.kukubaczek.minigames.core.general.ArenaObject;
+import org.bukkit.scheduler.BukkitRunnable;
+import redis.clients.jedis.Jedis;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import net.kukubaczek.minigames.core.MG_Core;
-import net.kukubaczek.minigames.core.general.ArenaKey;
-import net.kukubaczek.minigames.core.general.ArenaObject;
-import redis.clients.jedis.Jedis;
+@AllArgsConstructor
+public class RefreshRedisArenas extends BukkitRunnable {
 
-public class RefreshRedisArenas implements Runnable{
+    private MGCore plugin;
 
-	@Override
-	public void run() {
-		MG_Core.log("[SAVE] Rozpoczynanie zapisu areny...");
-        try (Jedis j = MG_Core.pool.getResource()) {
+    @Override
+    public void run() {
+        MGCore.log("[SAVE] Rozpoczynanie zapisu areny...");
+        try (Jedis j = plugin.getRedis().getUnsafe()) {
             final Map<String, String> data = new HashMap<>();
-            ArenaObject a = MG_Core.arena;
-            synchronized (a){
+            ArenaObject a = plugin.getArena();
+            synchronized (a) {
                 data.put(ArenaKey.SERVER.toString(), a.getBungeeServer());
                 data.put(ArenaKey.STATUS.toString(), a.getStatus().toString());
                 data.put(ArenaKey.MINIGRA.toString(), a.getMinigameName());
@@ -27,12 +32,11 @@ public class RefreshRedisArenas implements Runnable{
                 data.put(ArenaKey.LAST_SYNC.toString(), String.valueOf(System.currentTimeMillis()));
             }
             j.hmset(a.getPrefix() + a.getArenaID(), data);
-            MG_Core.log("[SAVE] Zapisano status areny (" + a.getPrefix() + a.getArenaID() + ")");
+            MGCore.log("[SAVE] Zapisano status areny (" + a.getPrefix() + a.getArenaID() + ")");
             j.disconnect();
         }
-        MG_Core.log("[SAVE] Czy zapisano poprawnie status?");
-	}
-	
-	
+        MGCore.log("[SAVE] Czy zapisano poprawnie status?");
+    }
+
 
 }

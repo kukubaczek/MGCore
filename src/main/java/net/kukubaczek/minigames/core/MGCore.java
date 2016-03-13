@@ -4,6 +4,8 @@ import lombok.Getter;
 import net.kukubaczek.minigames.core.general.ArenaObject;
 import net.kukubaczek.minigames.core.tasks.RefreshPlayersOnline;
 import net.kukubaczek.minigames.core.tasks.RefreshRedisArenas;
+import redis.clients.jedis.Jedis;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,8 +45,8 @@ public class MGCore extends JavaPlugin {
         redis.lpush(PREFIX + "arenalist", String.valueOf(arena.getArenaID()));
         log("Pomyslnie zaaktywowano arene w redisie!");
 
-        new RefreshRedisArenas(this).runTaskTimerAsynchronously(this, 600L, 10L);
-        new RefreshPlayersOnline(this).runTaskTimer(this, 60L, 60L);
+        new RefreshRedisArenas().runTaskTimerAsynchronously(this, 600L, 10L);
+        new RefreshPlayersOnline().runTaskTimer(this, 60L, 60L);
 
         log("Zaladowano!");
     }
@@ -56,5 +58,14 @@ public class MGCore extends JavaPlugin {
         log("Rozlaczanie z baza danych redis!");
         redis.close();
     }
+
+	public ArenaObject getArena() {
+		// TODO Auto-generated method stub
+		return arena;
+	}
+
+	public Redis getRedis() {
+		return redis;
+	}
 
 }

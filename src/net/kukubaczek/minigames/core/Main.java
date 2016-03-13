@@ -19,6 +19,8 @@ public class Main extends JavaPlugin{
 	public static Jedis jedis;
 	
 	public static ArenaObject arena;
+	
+	public static String prefix = "grav_";
 
 	@Override
 	public void onEnable(){
@@ -31,7 +33,7 @@ public class Main extends JavaPlugin{
         int port = getConfig().getInt("redis.port");
         String password = getConfig().getString("redis.password");
         
-        arena = new ArenaObject( "gravity-1", "grav_", "Gravity", 1, "Brak");
+        arena = new ArenaObject( "gravity-1", prefix, "Gravity", 1, "Brak");
 		
         log("Laczenie z baza Redis...");
         if (password == null || password.equals(""))
@@ -43,11 +45,15 @@ public class Main extends JavaPlugin{
             public void run() {
                 jedis = pool.getResource();
                 pool.returnResource(jedis);
+                log("Polaczono z baza Redis!");
             }
         }.runTaskAsynchronously(this);
         
+        jedis.lpush(prefix+"arenalist", String.valueOf(arena.getArenaID()));
+        log("Pomyslnie zaaktywowano arene w redisie!");
+        
         log("Tworzenie watkow...");
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new RefreshRedisArenas(), 20L, 20L);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new RefreshRedisArenas(), 100L, 100L);
         Bukkit.getScheduler().runTaskTimer(this, new RefreshPlayersOnline(), 20L, 20L);
         
         log("Zaladowano!");
@@ -55,6 +61,9 @@ public class Main extends JavaPlugin{
 	
 	@Override
 	public void onDisable() {
+		log("Dezaktywacja areny w redisie!");
+		jedis.lrem(prefix+"arenalist", -1, String.valueOf(arena.getArenaID()));
+		log("Rozlaczanie z baza danych redis!");
 	    pool.destroy();
 	}
 	

@@ -3,7 +3,7 @@ package net.kukubaczek.minigames.core.tasks;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.kukubaczek.minigames.core.Main;
+import net.kukubaczek.minigames.core.MG_Core;
 import net.kukubaczek.minigames.core.general.ArenaKey;
 import net.kukubaczek.minigames.core.general.ArenaObject;
 import redis.clients.jedis.Jedis;
@@ -12,10 +12,10 @@ public class RefreshRedisArenas implements Runnable{
 
 	@Override
 	public void run() {
-		Main.log("[SAVE] Rozpoczynanie zapisu areny...");
-        try (Jedis j = Main.pool.getResource()) {
+		MG_Core.log("[SAVE] Rozpoczynanie zapisu areny...");
+        try (Jedis j = MG_Core.pool.getResource()) {
             final Map<String, String> data = new HashMap<>();
-            ArenaObject a = Main.arena;
+            ArenaObject a = MG_Core.arena;
             synchronized (a){
                 data.put(ArenaKey.SERVER.toString(), a.getBungeeServer());
                 data.put(ArenaKey.STATUS.toString(), a.getStatus().toString());
@@ -27,10 +27,10 @@ public class RefreshRedisArenas implements Runnable{
                 data.put(ArenaKey.LAST_SYNC.toString(), String.valueOf(System.currentTimeMillis()));
             }
             j.hmset(a.getPrefix() + a.getArenaID(), data);
-            Main.log("[SAVE] Zapisano status areny (" + a.getPrefix() + a.getArenaID() + ")");
+            MG_Core.log("[SAVE] Zapisano status areny (" + a.getPrefix() + a.getArenaID() + ")");
             j.disconnect();
         }
-        Main.log("[SAVE] Czy zapisano poprawnie status?");
+        MG_Core.log("[SAVE] Czy zapisano poprawnie status?");
 	}
 	
 	

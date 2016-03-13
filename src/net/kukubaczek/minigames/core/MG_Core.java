@@ -11,12 +11,12 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-public class Main extends JavaPlugin{
+public class MG_Core extends JavaPlugin{
 	
 	
 	public static JedisPool pool;
 	
-	public static Jedis jedis;
+	public Jedis jedis;
 	
 	public static ArenaObject arena;
 	

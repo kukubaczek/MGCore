@@ -1,13 +1,13 @@
 package net.kukubaczek.minigames.core.tasks;
 
-import net.kukubaczek.minigames.core.Main;
+import net.kukubaczek.minigames.core.MG_Core;
 
 public class RefreshPlayersOnline implements Runnable{
 
 	@Override
 	public void run() {
 		
-		Main.arena.refreshPlayersOnline();
+		MG_Core.arena.refreshPlayersOnline();
 		
 	}
 

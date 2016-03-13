@@ -1,14 +1,17 @@
 package net.kukubaczek.minigames.core.tasks;
 
-import net.kukubaczek.minigames.core.MG_Core;
+import lombok.AllArgsConstructor;
+import net.kukubaczek.minigames.core.MGCore;
+import org.bukkit.scheduler.BukkitRunnable;
 
-public class RefreshPlayersOnline implements Runnable{
+@AllArgsConstructor
+public class RefreshPlayersOnline extends BukkitRunnable {
 
-	@Override
-	public void run() {
-		
-		MG_Core.arena.refreshPlayersOnline();
-		
-	}
+    private MGCore plugin;
+
+    @Override
+    public void run() {
+        plugin.getArena().refreshPlayersOnline();
+    }
 
 }

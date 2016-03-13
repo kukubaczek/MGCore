@@ -22,6 +22,7 @@ public class ArenaObject {
 		this.minigra = minigra;
 		this.arenaID = arenaID;
 		this.mapa = mapa;
+		maxPlayers = Bukkit.getMaxPlayers();
 	}
 	
 	public String getBungeeServer(){

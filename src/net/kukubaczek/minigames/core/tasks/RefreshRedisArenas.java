@@ -28,6 +28,7 @@ public class RefreshRedisArenas implements Runnable{
             }
             j.hmset(a.getPrefix() + a.getArenaID(), data);
             Main.log("[SAVE] Zapisano status areny (" + a.getPrefix() + a.getArenaID() + ")");
+            j.disconnect();
         }
         Main.log("[SAVE] Czy zapisano poprawnie status?");
 	}

@@ -52,7 +52,7 @@ public class Main extends JavaPlugin{
         log("Pomyslnie zaaktywowano arene w redisie!");
         
         log("Tworzenie watkow...");
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new RefreshRedisArenas(), 100L, 100L);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new RefreshRedisArenas(), 600L, 10L);
         Bukkit.getScheduler().runTaskTimer(this, new RefreshPlayersOnline(), 60L, 60L);
         
         log("Zaladowano!");

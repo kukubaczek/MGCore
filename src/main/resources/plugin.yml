@@ -1,4 +1,4 @@
 name: MGCore
 main: net.kukubaczek.minigames.core.MGCore
 version: ${project.version}
-authors: []Kukubaczek, kamcio96]
+authors: [Kukubaczek, kamcio96]

@@ -1,11 +1,11 @@
 package net.kukubaczek.minigames.core;
 
+import java.util.Map;
+import java.util.logging.Level;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-
-import java.util.Map;
-import java.util.logging.Level;
 
 public class Redis {
 

@@ -1,19 +1,22 @@
 package net.kukubaczek.minigames.core.tasks;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bukkit.scheduler.BukkitRunnable;
+
 import lombok.AllArgsConstructor;
 import net.kukubaczek.minigames.core.MGCore;
 import net.kukubaczek.minigames.core.general.ArenaKey;
 import net.kukubaczek.minigames.core.general.ArenaObject;
-import org.bukkit.scheduler.BukkitRunnable;
-import redis.clients.jedis.Jedis;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @AllArgsConstructor
 public class RefreshRedisArenas extends BukkitRunnable {
 
     private MGCore plugin;
+    public RefreshRedisArenas(MGCore plugin){
+    	this.plugin = plugin;
+    }
 
     @Override
     public void run() {

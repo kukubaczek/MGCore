@@ -44,7 +44,7 @@ public class Redis {
     }
 
     public void hmset(String key, Map<String, String> values) {
-        try (Jedis jedis = pool.getResource()) {
+        try (Jedis jedis = pool.getResource()){
             jedis.hmset(key, values);
         } catch (Exception e) {
             plugin.getLogger().log(Level.WARNING, "Redis exception", e);

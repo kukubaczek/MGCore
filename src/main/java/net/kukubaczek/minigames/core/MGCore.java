@@ -39,8 +39,8 @@ public class MGCore extends JavaPlugin {
         redis.lpush(PREFIX + "arenalist", String.valueOf(arena.getArenaID()));
         log("Pomyslnie zaaktywowano arene w redisie!");
 
-        new RefreshRedisArenas(this).runTaskTimerAsynchronously(this, 600L, 10L);
-        new RefreshPlayersOnline(this).runTaskTimer(this, 60L, 60L);
+        new RefreshRedisArenas(this).runTaskTimerAsynchronously(this, 300L,300L);
+        new RefreshPlayersOnline(this).runTaskTimer(this, 300L, 300L);
 
         log("Zaladowano!");
     }

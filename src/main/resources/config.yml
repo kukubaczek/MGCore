@@ -5,3 +5,9 @@ redis:
 
 sync:
   time: 10
+
+loadArenaList: false
+uploadThisArena: true
+
+gamesToLoad:
+- grav

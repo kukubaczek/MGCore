@@ -1,7 +1,14 @@
 package net.kukubaczek.minigames.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.kukubaczek.minigames.core.general.ArenaKey;
 import net.kukubaczek.minigames.core.general.ArenaObject;
 import net.kukubaczek.minigames.core.tasks.RefreshPlayersOnline;
 import net.kukubaczek.minigames.core.tasks.RefreshRedisArenas;
@@ -15,7 +22,12 @@ public class MGCore extends JavaPlugin {
     private ArenaObject arena;
 
     private Redis redis;
+    
+    public static boolean loadArenaList;
+    public static boolean uploadThisArena;
 
+    public Map<String, ArrayList<ArenaObject>> gry = new HashMap<String, ArrayList<ArenaObject>>();
+    
     public static void log(String msg) {
         System.out.println("[MG_Core] " + msg);
     }
@@ -32,16 +44,19 @@ public class MGCore extends JavaPlugin {
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
 
+        this.loadArenaList = this.getConfig().getBoolean("loadArenaList");
+        this.uploadThisArena = this.getConfig().getBoolean("uploadThisArena");
+        
         log("Laczenie z baza Redis...");
         redis = new Redis(this);
-        arena = new ArenaObject("gravity-1", PREFIX, "Gravity", 1, "Brak");
+        if(uploadThisArena) arena = new ArenaObject("gravity-1", PREFIX, "Gravity", 1, "Brak");
 
         redis.lpush(PREFIX + "arenalist", String.valueOf(arena.getArenaID()));
         log("Pomyslnie zaaktywowano arene w redisie!");
 
-        new RefreshRedisArenas(this).runTaskTimerAsynchronously(this, 300L,300L);
-        new RefreshPlayersOnline(this).runTaskTimer(this, 300L, 300L);
-
+        new RefreshRedisArenas(this).runTaskTimerAsynchronously(this, 100L,100L);
+        new RefreshPlayersOnline(this).runTaskTimer(this, 100L, 100L);
+        
         log("Zaladowano!");
     }
 
